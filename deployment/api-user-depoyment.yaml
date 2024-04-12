@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: api-user
   labels:
-    app: api-user
+    app.kubernetes.io/name: api-user
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: api-user
+      app.kubernetes.io/name: api-user
   template:
     metadata:
       labels:
-        app: api-user
+        app.kubernetes.io/name: api-user
     spec:
       containers:
       - image: lukastecios/udagram-api-user

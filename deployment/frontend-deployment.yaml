@@ -3,17 +3,16 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    app.kubernetes.io/name: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app.kubernetes.io/name: frontend
   template:
     metadata:
       labels:
-        app: frontend
-        api: external        
+        app.kubernetes.io/name: frontend      
     spec:
       containers:
       - image: lukastecios/udagram-frontend

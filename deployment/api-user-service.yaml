@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: api-user
   labels:
-    run: api-user
+    app.kubernetes.io/name: api-user
 spec:
   ports:
-  - port: 8080
-    targetPort: 8080
+  - protocol: TCP
+    port: 8082
+    targetPort: 8082
   selector:
-    run: api-user
+    app.kubernetes.io/name: api-user
