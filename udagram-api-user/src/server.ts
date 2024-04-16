@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import {config} from './config/config';
 import {V0_USER_MODELS} from './controllers/v0/model.index';
 
+import {v4 as uuid} from 'uuid';
 
 (async () => {
   await sequelize.addModels(V0_USER_MODELS);
@@ -16,9 +17,21 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
   await sequelize.sync();
 
   const app = express();
-  const port = process.env.PORT || 8080;
+  const port = parseInt(process.env.PORT) || 8082;
 
   app.use(bodyParser.json());
+
+  app.use((req: any, res: any, next: any) => {
+    req.id = uuid();
+    
+    res.header('X-Request-Id', req.id);
+
+    const {id, url, method} = req
+
+    console.log(id, url, method);
+
+    return next();
+  });
 
   // We set the CORS origin to * so that we don't need to
   // worry about the complexities of CORS this lesson. It's
@@ -43,7 +56,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
 
 
   // Start the Server
-  app.listen( port, () => {
+  app.listen( port, '0.0.0.0', () => {
     console.log( `server running ${config.url}` );
     console.log( `press CTRL+C to stop server` );
   } );

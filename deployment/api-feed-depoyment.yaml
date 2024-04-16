@@ -3,21 +3,21 @@ kind: Deployment
 metadata:
   name: api-feed
   labels:
-    app: api-feed
+    app.kubernetes.io/name: api-feed
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: api-feed
+      app.kubernetes.io/name: api-feed
   template:
     metadata:
       labels:
-        app: api-feed
+        app.kubernetes.io/name: api-feed
     spec:
       containers:
       - image: lukastecios/udagram-api-feed
         name: api-feed
-        imagePullPolicy: Always                  
+        imagePullPolicy: Always              
         env:
         - name: URL
           valueFrom:

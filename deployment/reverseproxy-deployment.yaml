@@ -3,21 +3,21 @@ kind: Deployment
 metadata:
   name: reverseproxy
   labels:
-    app: reverseproxy
+    app.kubernetes.io/name: reverseproxy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: reverseproxy
+      app.kubernetes.io/name: reverseproxy
   template:
     metadata:
       labels:
-        app: reverseproxy
+        app.kubernetes.io/name: reverseproxy
     spec:
       containers:
       - image: lukastecios/udagram-reverseproxy
         name: reverseproxy
         imagePullPolicy: Always 
         ports:
-        - containerPort: 8080
+        - containerPort: 80
       restartPolicy: Always
